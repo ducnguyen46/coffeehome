@@ -3,6 +3,7 @@ import 'package:coffeehome/ui/authenticate/provider/auth_provider.dart';
 import 'package:coffeehome/ui/authenticate/provider/signin_validate.dart';
 import 'package:coffeehome/ui/authenticate/provider/user_provider.dart';
 import 'package:coffeehome/ui/cart/provider/cart_provider.dart';
+import 'package:coffeehome/ui/delivery_info/provider/delivery_provider.dart';
 import 'package:coffeehome/ui/home/provider/product_provider.dart';
 import 'package:coffeehome/ui/item_detail/provider/item_provider.dart';
 import 'package:coffeehome/ui/welcome/view/welcom_screen.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductProvider()),
         ChangeNotifierProvider(create: (_) => ItemProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => DeliveryInfoProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

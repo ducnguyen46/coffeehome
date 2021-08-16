@@ -7,17 +7,17 @@ part of 'delivery_info.dart';
 // **************************************************************************
 
 DeliveryInfo _$DeliveryInfoFromJson(Map<String, dynamic> json) => DeliveryInfo(
-      BigInt.parse(json['id'] as String),
-      json['receiver'] as String,
-      json['phoneNumber'] as String,
-      json['address'] as String,
-      json['note'] as String,
-      json['isDefault'] as bool,
+      id: json['id'] as int?,
+      receiver: json['receiver'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      address: json['address'] as String,
+      note: json['note'] as String,
+      isDefault: json['isDefault'] as bool,
     );
 
 Map<String, dynamic> _$DeliveryInfoToJson(DeliveryInfo instance) =>
     <String, dynamic>{
-      'id': instance.id.toString(),
+      'id': instance.id,
       'receiver': instance.receiver,
       'phoneNumber': instance.phoneNumber,
       'address': instance.address,

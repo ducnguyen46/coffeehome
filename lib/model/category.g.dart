@@ -12,6 +12,6 @@ Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
     );
 
 Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
-      'id': instance.id.toString(),
+      'id': instance.id,
       'name': instance.name,
     };

@@ -7,16 +7,17 @@ part of 'shipment.dart';
 // **************************************************************************
 
 Shipment _$ShipmentFromJson(Map<String, dynamic> json) => Shipment(
-      BigInt.parse(json['id'] as String),
-      DeliveryInfo.fromJson(json['deliveryInfo'] as Map<String, dynamic>),
-      json['isCompleted'] as bool,
-      json['shipperId'] as String,
-      json['shipperName'] as String,
-      json['shipperPhone'] as String,
+      id: json['id'] as int,
+      deliveryInfo:
+          DeliveryInfo.fromJson(json['deliveryInfo'] as Map<String, dynamic>),
+      isCompleted: json['isCompleted'] as bool,
+      shipperId: json['shipperId'] as String,
+      shipperName: json['shipperName'] as String,
+      shipperPhone: json['shipperPhone'] as String,
     );
 
 Map<String, dynamic> _$ShipmentToJson(Shipment instance) => <String, dynamic>{
-      'id': instance.id.toString(),
+      'id': instance.id,
       'deliveryInfo': instance.deliveryInfo,
       'isCompleted': instance.isCompleted,
       'shipperId': instance.shipperId,

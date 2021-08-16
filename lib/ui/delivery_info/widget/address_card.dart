@@ -1,12 +1,16 @@
 import 'package:coffeehome/config/color/color.dart';
 import 'package:coffeehome/constant/app_path.dart';
+import 'package:coffeehome/model/delivery_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AddressCard extends StatelessWidget {
   const AddressCard({
     Key? key,
+    required this.deliveryInfo,
   }) : super(key: key);
+
+  final DeliveryInfo deliveryInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class AddressCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  "Anderson",
+                  "${deliveryInfo.receiver}",
                   style: Theme.of(context).textTheme.bodyText1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -35,9 +39,10 @@ class AddressCard extends StatelessWidget {
               SvgPicture.asset(pathToIcons + "ic_location.svg"),
             ],
           ),
-          Text("+84961465453", style: Theme.of(context).textTheme.subtitle2),
+          Text("${deliveryInfo.phoneNumber}",
+              style: Theme.of(context).textTheme.subtitle2),
           Text(
-            "Nguyen Van Troi, Mo Lao, Ha Dong, Ha Noi",
+            "${deliveryInfo.address}",
             style: Theme.of(context).textTheme.subtitle2,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -46,7 +51,7 @@ class AddressCard extends StatelessWidget {
             height: 10,
           ),
           Text(
-            "Note: ",
+            "Note: ${deliveryInfo.note}",
             style: Theme.of(context).textTheme.subtitle2,
           ),
         ],

@@ -7,7 +7,7 @@ part of 'item.dart';
 // **************************************************************************
 
 Item _$ItemFromJson(Map<String, dynamic> json) => Item(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       product: Product.fromJson(json['product'] as Map<String, dynamic>),
       priceIn: (json['priceIn'] as num).toDouble(),
       quantity: json['quantity'] as int,

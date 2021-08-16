@@ -57,7 +57,9 @@ class _NormalTextFieldState extends State<NormalTextField> {
                     },
                     cursorColor: bluewood,
                     cursorRadius: const Radius.circular(8.0),
-                    expands: widget.expanded,
+                    maxLines: widget.expanded ? null : 1,
+                    minLines: widget.expanded ? 1 : null,
+                    maxLength: widget.expanded ? 200 : null,
                     style: Theme.of(context).textTheme.bodyText1,
                     decoration: InputDecoration(
                       hintText: "${widget.fieldName}",

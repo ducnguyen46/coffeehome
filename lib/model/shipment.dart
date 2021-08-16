@@ -6,16 +6,23 @@ part 'shipment.g.dart';
 
 @JsonSerializable()
 class Shipment {
-  late BigInt id;
+  int id;
   late DeliveryInfo deliveryInfo;
   late bool isCompleted;
   late String shipperId;
   late String shipperName;
   late String shipperPhone;
 
-  Shipment(this.id, this.deliveryInfo, this.isCompleted, this.shipperId,
-      this.shipperName, this.shipperPhone,);
+  Shipment({
+    required this.id,
+    required this.deliveryInfo,
+    required this.isCompleted,
+    required this.shipperId,
+    required this.shipperName,
+    required this.shipperPhone,
+  });
 
-  factory Shipment.fromJson(Map<String, dynamic> json) => _$ShipmentFromJson(json);
+  factory Shipment.fromJson(Map<String, dynamic> json) =>
+      _$ShipmentFromJson(json);
   Map<String, dynamic> toJson() => _$ShipmentToJson(this);
 }

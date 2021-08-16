@@ -7,16 +7,16 @@ part of 'order.dart';
 // **************************************************************************
 
 Order _$OrderFromJson(Map<String, dynamic> json) => Order(
-      BigInt.parse(json['id'] as String),
-      (json['items'] as List<dynamic>)
+      id: json['id'] as int,
+      items: (json['items'] as List<dynamic>)
           .map((e) => Item.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['orderDate'] as String,
-      Shipment.fromJson(json['shipment'] as Map<String, dynamic>),
-      json['voucher'] == null
+      orderDate: json['orderDate'] as String,
+      shipment: Shipment.fromJson(json['shipment'] as Map<String, dynamic>),
+      voucher: json['voucher'] == null
           ? null
           : Voucher.fromJson(json['voucher'] as Map<String, dynamic>),
-      User.fromJson(json['user'] as Map<String, dynamic>),
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
