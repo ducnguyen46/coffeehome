@@ -12,7 +12,15 @@ class Api {
   static const String getProductId = baseUrl + "product/{id}";
 
   //order
-  static const String orders = baseUrl + "/order";
+  static const String order = baseUrl + "/order";
+
+  //items
+  static const String items = baseUrl + "/items";
+
+  //bill
+  static const String bill = baseUrl + "/bill";
+  static const String bill_ongoing = baseUrl + "/bill/on-going";
+  static const String bill_complete = baseUrl + "/bill/complete";
 
   //delivery
   static const String deliveryInfo = baseUrl + "/delivery-info";

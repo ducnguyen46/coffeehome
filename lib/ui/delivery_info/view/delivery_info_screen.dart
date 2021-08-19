@@ -17,14 +17,6 @@ class DeliveryInfoScreen extends StatefulWidget {
 
 class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
   @override
-  void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      context.read<DeliveryInfoProvider>().getAllDeliveryInfo();
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
@@ -69,8 +61,16 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
             Flexible(
               child: ListView.builder(
                 itemCount: deliveryInfos.length,
-                itemBuilder: (context, index) => AddressCard(
-                  deliveryInfo: deliveryInfos[index],
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    context
+                        .read<DeliveryInfoProvider>()
+                        .setDeliveryInfo(deliveryInfos[index]);
+                    Navigator.pop(context);
+                  },
+                  child: AddressCard(
+                    deliveryInfo: deliveryInfos[index],
+                  ),
                 ),
               ),
             ),

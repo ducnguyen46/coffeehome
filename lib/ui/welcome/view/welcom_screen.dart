@@ -9,6 +9,7 @@ import 'package:coffeehome/ui/authenticate/provider/user_provider.dart';
 import 'package:coffeehome/ui/authenticate/view/signin_screen.dart';
 import 'package:coffeehome/ui/home/provider/product_provider.dart';
 import 'package:coffeehome/ui/home/view/home_screen.dart';
+import 'package:coffeehome/ui/welcome/view/bottom_navbar.dart';
 import 'package:coffeehome/ui/welcome/view/error_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,7 +36,7 @@ class WelcomeScreen extends StatelessWidget {
                   child: Center(child: CoffeeAnimation()));
             default:
               return snapshot.data!
-                  ? HomeScreen()
+                  ? MyBottomNavigation()
                   : WelcomeView(
                       size: size,
                     );
@@ -44,9 +45,9 @@ class WelcomeScreen extends StatelessWidget {
         return ErrorScreen();
       },
     );
-    // return CartScreen();
   }
 
+  // a little controller
   Future<bool> autoLogin(BuildContext context) async {
     Map<String, dynamic> loginData =
         await UserStorageInfo().getUsernamePassword();

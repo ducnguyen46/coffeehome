@@ -10,24 +10,29 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class DeliveryInfoProvider with ChangeNotifier {
+  //value delivery info
+  List<DeliveryInfo> _deliveryInfos = [];
+  DeliveryInfo? _deliveryInfo;
+
+  //validate add delivery info
   var _name = ValidationField(error: null, data: null);
   var _phoneNumber = ValidationField(error: null, data: null);
   var _address = ValidationField(error: null, data: null);
   var _note = "";
   var _countryCode = "+84";
-
   String? error;
+
   Map<String, dynamic>? log;
 
-  List<DeliveryInfo> _deliveryInfos = [];
+  // function
+  List<DeliveryInfo> get deliveryInfos => _deliveryInfos;
+  DeliveryInfo? get deliveryInfo => _deliveryInfo;
 
   ValidationField get name => _name;
   ValidationField get phoneNumber => _phoneNumber;
   ValidationField get address => _address;
   String get note => _note;
   String get countryCode => _countryCode;
-
-  List<DeliveryInfo> get deliveryInfos => _deliveryInfos;
 
   void init() {
     _name = ValidationField(error: null, data: null);
@@ -85,6 +90,11 @@ class DeliveryInfoProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setDeliveryInfo(DeliveryInfo deliveryInfo) {
+    _deliveryInfo = deliveryInfo;
+    notifyListeners();
+  }
+
   Future addNewDeliveryInfo(DeliveryInfo deliveryInfo) async {
     final keyStorage = UserStorageInfo();
     String? token = await keyStorage.getToken();
@@ -99,7 +109,7 @@ class DeliveryInfoProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       log = jsonDecode(response.body) as Map<String, dynamic>;
       if (log!["status"] == "OK") {
-        getAllDeliveryInfo();
+        await getAllDeliveryInfo();
       }
     }
   }
@@ -117,6 +127,9 @@ class DeliveryInfoProvider with ChangeNotifier {
 
     if (response.statusCode == 200) {
       _deliveryInfos = await compute(_parseDeliveryInfos, response.body);
+      if (_deliveryInfos.isNotEmpty) {
+        _deliveryInfo = _deliveryInfos.first;
+      }
       notifyListeners();
     }
   }

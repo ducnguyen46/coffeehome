@@ -6,6 +6,8 @@ import 'package:coffeehome/ui/cart/provider/cart_provider.dart';
 import 'package:coffeehome/ui/delivery_info/provider/delivery_provider.dart';
 import 'package:coffeehome/ui/home/provider/product_provider.dart';
 import 'package:coffeehome/ui/item_detail/provider/item_provider.dart';
+import 'package:coffeehome/ui/order/provider/bill_order_provider.dart';
+import 'package:coffeehome/ui/reward/provider/reward_provider.dart';
 import 'package:coffeehome/ui/welcome/view/welcom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,9 +34,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ItemProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => DeliveryInfoProvider()),
+        ChangeNotifierProvider(create: (_) => RewardProvider()),
+        ChangeNotifierProvider(create: (_) => BillOrderProvider()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
         theme: lightTheme,
         home: WelcomeScreen(),
       ),

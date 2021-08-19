@@ -1,5 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:coffeehome/constant/api_path.dart';
+import 'package:coffeehome/core/storage_key.dart';
 import 'package:coffeehome/model/item.dart';
+import 'package:coffeehome/model/order_dto.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class CartProvider with ChangeNotifier {
   List<Item> _items = [];
@@ -32,5 +39,27 @@ class CartProvider with ChangeNotifier {
       totalPrice += (item.priceIn * item.quantity);
     }
     return totalPrice;
+  }
+
+  Future<bool> createOrder(OrderDto orderDto) async {
+    final keyStorage = UserStorageInfo();
+    String? token = await keyStorage.getToken();
+    final response = await http.post(
+      Uri.parse(Api.order),
+      headers: {
+        HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
+        HttpHeaders.authorizationHeader: "Bearer $token",
+      },
+      body: jsonEncode(orderDto.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      _items = [];
+      _totalPrice = getTotalPrice();
+      notifyListeners();
+      return true;
+    } else {
+      return false;
+    }
   }
 }

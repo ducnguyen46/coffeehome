@@ -6,6 +6,7 @@ import 'package:coffeehome/model/user.dart';
 import 'package:coffeehome/ui/a_widget_reduce/toast.dart';
 import 'package:coffeehome/ui/authenticate/provider/user_provider.dart';
 import 'package:coffeehome/ui/cart/view/cart_screen.dart';
+import 'package:coffeehome/ui/delivery_info/view/delivery_info_screen.dart';
 import 'package:coffeehome/ui/home/provider/product_provider.dart';
 import 'package:coffeehome/ui/home/widget/product_card.dart';
 import 'package:coffeehome/ui/home/widget/reward_card.dart';
@@ -43,11 +44,19 @@ class _HomeScreenState extends State<HomeScreen> {
             delegate: HomeSliverAppbar(
               user: _user!,
               minHeight: kToolbarHeight + _mediaQuery.padding.top,
-              maxHeight: kToolbarHeight + _mediaQuery.padding.top + 150,
+              maxHeight: kToolbarHeight + _mediaQuery.padding.top,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: RewardCard(
+                user: _user!,
+              ),
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) => GestureDetector(
@@ -95,13 +104,10 @@ class HomeSliverAppbar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    double percent = min(shrinkOffset / (maxExtent - minExtent), 1);
-    print(percent);
     return Container(
         child: Column(
       children: [
         _appBar(context),
-        _rewardCard(percent),
       ],
     ));
   }
@@ -147,6 +153,12 @@ class HomeSliverAppbar extends SliverPersistentHeaderDelegate {
                   ),
                 ),
                 GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => DeliveryInfoScreen()));
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     child: SvgPicture.asset(pathToIcons + "ic_person.svg"),
@@ -160,19 +172,19 @@ class HomeSliverAppbar extends SliverPersistentHeaderDelegate {
     );
   }
 
-  Widget _rewardCard(double percent) {
-    return AnimatedOpacity(
-      duration: Duration(milliseconds: 200),
-      opacity: max((1 - percent), 0),
-      child: FittedBox(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-        child: RewardCard(
-          user: user,
-        ),
-      )),
-    );
-  }
+  // Widget _rewardCard(double percent) {
+  //   return AnimatedOpacity(
+  //     duration: Duration(milliseconds: 200),
+  //     opacity: max((1 - percent), 0),
+  //     child: FittedBox(
+  //         child: Padding(
+  //       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+  //       child: RewardCard(
+  //         user: user,
+  //       ),
+  //     )),
+  //   );
+  // }
 
   @override
   double get maxExtent => maxHeight;

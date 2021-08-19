@@ -1,10 +1,13 @@
 import 'package:coffeehome/config/color/color.dart';
 import 'package:coffeehome/constant/app_path.dart';
+import 'package:coffeehome/model/delivery_info.dart';
 import 'package:coffeehome/model/item.dart';
+import 'package:coffeehome/model/order_dto.dart';
 import 'package:coffeehome/ui/a_widget_reduce/appbar_back.dart';
 import 'package:coffeehome/ui/a_widget_reduce/toast.dart';
 import 'package:coffeehome/ui/cart/provider/cart_provider.dart';
 import 'package:coffeehome/ui/cart/widget/item_card.dart';
+import 'package:coffeehome/ui/delivery_info/provider/delivery_provider.dart';
 import 'package:coffeehome/ui/delivery_info/view/delivery_info_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +27,13 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   List<Item> items = [];
+  DeliveryInfo? deliveryInfo;
 
   @override
   void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      await context.read<DeliveryInfoProvider>().getAllDeliveryInfo();
+    });
     super.initState();
   }
 
@@ -34,6 +41,8 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     items = context.watch<CartProvider>().items;
+    deliveryInfo = context.watch<DeliveryInfoProvider>().deliveryInfo;
+
     return Scaffold(
       appBar: AppBarBack(
         safeAreaTop: MediaQuery.of(context).padding.top,
@@ -125,8 +134,8 @@ class _CartScreenState extends State<CartScreen> {
                   GestureDetector(
                     onTap: () {
                       items.isNotEmpty
-                          ? _showBottomSheet(context, size)
-                          : _showToast(context);
+                          ? _showBottomSheet(context, size, deliveryInfo)
+                          : _showToast(context, "Nothing in cart", false);
                     },
                     child: Container(
                       padding: const EdgeInsets.all(14),
@@ -160,7 +169,8 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Future<dynamic> _showBottomSheet(BuildContext context, Size size) {
+  Future<dynamic> _showBottomSheet(
+      BuildContext context, Size size, DeliveryInfo? deliveryInfo) {
     return showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -202,23 +212,28 @@ class _CartScreenState extends State<CartScreen> {
                     child: SvgPicture.asset(pathToIcons + "ic_delivery.svg"),
                   ),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Anderson",
-                          style: Theme.of(context).textTheme.subtitle2,
-                        ),
-                        Text("+84961465453",
-                            style: Theme.of(context).textTheme.caption),
-                        Text(
-                          "Nguyen Van Troi, Mo Lao, Ha Dong, Ha Noi",
-                          style: Theme.of(context).textTheme.caption,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
+                    child: deliveryInfo != null
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                deliveryInfo.receiver,
+                                style: Theme.of(context).textTheme.subtitle2,
+                              ),
+                              Text(deliveryInfo.phoneNumber,
+                                  style: Theme.of(context).textTheme.caption),
+                              Text(
+                                deliveryInfo.address,
+                                style: Theme.of(context).textTheme.caption,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          )
+                        : Text(
+                            "No more delivery info",
+                            style: Theme.of(context).textTheme.subtitle2,
+                          ),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -270,7 +285,26 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () async {
+                      if (deliveryInfo != null) {
+                        OrderDto orderDto = new OrderDto(
+                          items: items,
+                          deliveryId: deliveryInfo.id!,
+                          voucherId: 1,
+                        );
+                        final createOrder = await context
+                            .read<CartProvider>()
+                            .createOrder(orderDto);
+
+                        if (createOrder) {
+                          _showToast(context, "Order successful", true);
+                          Navigator.pop(context);
+                        } else {
+                          _showToast(
+                              context, "Order fail. Try again later", false);
+                        }
+                      }
+                    },
                     child: Container(
                       padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
@@ -303,12 +337,12 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  void _showToast(BuildContext context) {
+  void _showToast(BuildContext context, String content, bool success) {
     FToast fToast = FToast();
     fToast.init(context);
     fToast.showToast(
         gravity: ToastGravity.BOTTOM,
         toastDuration: Duration(seconds: 2),
-        child: ToastView(content: "Nothing in cart", success: false));
+        child: ToastView(content: content, success: success));
   }
 }

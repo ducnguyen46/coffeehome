@@ -24,7 +24,7 @@ class TotalAmount extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
       width: size.width,
-      height: 120,
+      height: 100,
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         boxShadow: [

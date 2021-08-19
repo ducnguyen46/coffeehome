@@ -7,11 +7,11 @@ part of 'order_dto.dart';
 // **************************************************************************
 
 OrderDto _$OrderDtoFromJson(Map<String, dynamic> json) => OrderDto(
-      (json['items'] as List<dynamic>)
+      items: (json['items'] as List<dynamic>)
           .map((e) => Item.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['voucherId'] as int,
-      json['deliveryId'] as int,
+      voucherId: json['voucherId'] as int,
+      deliveryId: json['deliveryId'] as int,
     );
 
 Map<String, dynamic> _$OrderDtoToJson(OrderDto instance) => <String, dynamic>{

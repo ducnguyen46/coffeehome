@@ -7,9 +7,9 @@ part of 'bill.dart';
 // **************************************************************************
 
 Bill _$BillFromJson(Map<String, dynamic> json) => Bill(
-      BigInt.parse(json['id'] as String),
-      (json['amount'] as num).toDouble(),
-      Order.fromJson(json['order'] as Map<String, dynamic>),
+      id: json['id'] as int,
+      amount: (json['amount'] as num).toDouble(),
+      order: Order.fromJson(json['order'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$BillToJson(Bill instance) => <String, dynamic>{

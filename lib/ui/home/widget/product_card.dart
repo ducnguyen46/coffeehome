@@ -28,7 +28,7 @@ class ProductCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
+          Flexible(
             child: Container(
               margin: const EdgeInsets.only(right: 15),
               child: Column(

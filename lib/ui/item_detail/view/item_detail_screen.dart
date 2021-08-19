@@ -49,11 +49,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
       appBar: AppBarDetail(safeAreaTop: MediaQuery.of(context).padding.top),
       body: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            width: size.width,
-            height: size.height -
-                (120 + kToolbarHeight + MediaQuery.of(context).padding.top),
+          Expanded(
             child: ListView(
               children: [
                 Container(
@@ -69,8 +65,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: CachedNetworkImage(
-                        imageUrl:
-                            "${context.read<ItemProvider>().product?.image}",
+                        imageUrl: "${widget.product.image}",
                         errorWidget: (context, _, error) => Center(
                           child: CoffeeAnimation(),
                         ),
@@ -82,16 +77,16 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                   ),
                 ),
                 QuantityInDetail(itemProvider: _itemProvider),
-                DividerHere,
+                Divider(),
                 TypeInDetail(itemProvider: _itemProvider),
                 //
-                DividerHere,
+                Divider(),
                 SizeInDetail(itemProvider: _itemProvider),
                 //
-                DividerHere,
+                Divider(),
                 IceInDetail(itemProvider: _itemProvider),
                 //
-                DividerHere,
+                Divider(),
                 SugarInDetail(itemProvider: _itemProvider),
               ],
             ),
@@ -101,9 +96,4 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
       ),
     );
   }
-
-  static const Widget DividerHere = Divider(
-    thickness: 2,
-    color: Color(0xFFF4F5F7),
-  );
 }

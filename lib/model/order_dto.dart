@@ -9,11 +9,11 @@ class OrderDto {
   late int voucherId;
   late int deliveryId;
 
-  OrderDto(
-    this.items,
-    this.voucherId,
-    this.deliveryId,
-  );
+  OrderDto({
+    required this.items,
+    required this.voucherId,
+    required this.deliveryId,
+  });
 
   factory OrderDto.fromJson(Map<String, dynamic> json) =>
       _$OrderDtoFromJson(json);
