@@ -108,6 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 24,
                   ),
                   PasswordField(
+                    hintText: "Password",
                     validate: (password) {
                       signInValidate.setPassword(password);
                     },

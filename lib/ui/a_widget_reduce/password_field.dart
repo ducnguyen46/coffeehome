@@ -4,23 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class PasswordField extends StatefulWidget {
-  PasswordField({
+class PasswordField extends StatelessWidget {
+  const PasswordField({
     Key? key,
     required this.validate,
     required this.showPassword,
     required this.isObscureText,
+    required this.hintText,
   }) : super(key: key);
 
   final Function(String) validate;
   final Function() showPassword;
   final bool isObscureText;
+  final String hintText;
 
-  @override
-  _PasswordFieldState createState() => _PasswordFieldState();
-}
-
-class _PasswordFieldState extends State<PasswordField> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -51,14 +48,14 @@ class _PasswordFieldState extends State<PasswordField> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: TextField(
-                    onChanged: widget.validate,
-                    obscureText: widget.isObscureText,
+                    onChanged: validate,
+                    obscureText: isObscureText,
                     cursorColor: bluewood,
                     cursorRadius: const Radius.circular(8.0),
                     style: Theme.of(context).textTheme.bodyText1,
                     keyboardType: TextInputType.visiblePassword,
                     decoration: InputDecoration(
-                      hintText: "Password",
+                      hintText: hintText,
                       hintStyle: Theme.of(context).textTheme.bodyText2,
                       border: InputBorder.none,
                       errorStyle: TextStyle(
@@ -71,10 +68,10 @@ class _PasswordFieldState extends State<PasswordField> {
                 ),
               ),
               GestureDetector(
-                onTap: widget.showPassword,
+                onTap: showPassword,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: widget.isObscureText
+                  child: isObscureText
                       ? SvgPicture.asset(
                           pathToIcons + "ic_eye.svg",
                           width: 18,

@@ -44,7 +44,10 @@ class ProfileScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                print("Click");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChangePasswordScreen()));
               },
               child: Container(
                 margin:

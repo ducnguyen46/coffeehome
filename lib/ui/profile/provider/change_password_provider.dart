@@ -19,6 +19,42 @@ class ChangePasswordProvider with ChangeNotifier {
   String? error;
   Map<String, dynamic>? result;
 
+  bool showOldPassword = false;
+  bool showNewPassword = false;
+  bool showNewPasswordAgain = false;
+
+  Future changePassword() async {
+    final keyStorage = UserStorageInfo();
+    String? token = await keyStorage.getToken();
+
+    Map<String, dynamic> dataBody = {
+      "username": _username.data,
+      "oldPassword": _oldPassword.data,
+      "newPassword": _newPassword.data,
+    };
+
+    final response = await http.put(
+      Uri.parse(Api.changePassword),
+      headers: {
+        HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
+        HttpHeaders.authorizationHeader: "Bearer $token",
+      },
+      body: jsonEncode(dataBody),
+    );
+    if (response.statusCode == 200) {
+      var responseBody = jsonDecode(response.body).cast<Map<String, dynamic>>();
+      result = responseBody;
+      if (responseBody["status"] == "OK") {
+        final userStorage = UserStorageInfo();
+        await userStorage.saveUsernamePassword(
+            username.data!, newPassword.data!);
+      }
+    } else {
+      result = {"status": "ERROR", "data": "Our fault, not yours 😭 "};
+    }
+    notifyListeners();
+  }
+
   void setUsername(String data) {
     RegExp regExp =
         RegExp(r"^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{1,}$");
@@ -82,33 +118,6 @@ class ChangePasswordProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future changePassword() async {
-    final keyStorage = UserStorageInfo();
-    String? token = await keyStorage.getToken();
-
-    Map<String, dynamic> dataBody = {
-      "username": _username.data,
-      "oldPassword": _oldPassword.data,
-      "newPassword": _newPassword.data,
-    };
-
-    final response = await http.put(
-      Uri.parse(Api.changePassword),
-      headers: {
-        HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
-        HttpHeaders.authorizationHeader: "Bearer $token",
-      },
-      body: jsonEncode(dataBody),
-    );
-    if (response.statusCode == 200) {
-      var responseBody = jsonDecode(response.body).cast<Map<String, dynamic>>();
-      result = responseBody;
-    } else {
-      result = {"status": "ERROR", "data": "Our fault, not yours 😭 "};
-    }
-    notifyListeners();
-  }
-
   void checkError() {
     List<ValidationField> listValidate = [
       _username,
@@ -121,6 +130,21 @@ class ChangePasswordProvider with ChangeNotifier {
         error = validationField.error;
       }
     }
+    notifyListeners();
+  }
+
+  void setShowOldPassword() {
+    showOldPassword = !showOldPassword;
+    notifyListeners();
+  }
+
+  void setShowNewPassword() {
+    showNewPassword = !showNewPassword;
+    notifyListeners();
+  }
+
+  void setShowNewPasswordAgain() {
+    showNewPasswordAgain = !showNewPasswordAgain;
     notifyListeners();
   }
 }

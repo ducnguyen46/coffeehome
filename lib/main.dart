@@ -7,6 +7,7 @@ import 'package:coffeehome/ui/delivery_info/provider/delivery_provider.dart';
 import 'package:coffeehome/ui/home/provider/product_provider.dart';
 import 'package:coffeehome/ui/item_detail/provider/item_provider.dart';
 import 'package:coffeehome/ui/order/provider/bill_order_provider.dart';
+import 'package:coffeehome/ui/profile/provider/change_password_provider.dart';
 import 'package:coffeehome/ui/reward/provider/reward_provider.dart';
 import 'package:coffeehome/ui/welcome/view/welcom_screen.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DeliveryInfoProvider()),
         ChangeNotifierProvider(create: (_) => RewardProvider()),
         ChangeNotifierProvider(create: (_) => BillOrderProvider()),
+        ChangeNotifierProvider(create: (_) => ChangePasswordProvider()),
       ],
       child: MaterialApp(
         theme: lightTheme,
