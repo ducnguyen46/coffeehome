@@ -60,28 +60,28 @@ class _MyBottomNavigationState extends State<MyBottomNavigation> {
     PersistentBottomNavBarItem(
       icon: SvgPicture.asset(
         pathToIcons + "ic_home.svg",
-        color: bluewood,
+        color: bluewood.withOpacity(0.7),
       ),
       title: "Home",
-      activeColorPrimary: bluewood,
+      activeColorPrimary: bluewood.withOpacity(0.7),
       inactiveColorPrimary: whitegray,
     ),
     PersistentBottomNavBarItem(
       icon: SvgPicture.asset(
         pathToIcons + "ic_rewards.svg",
-        color: lightgreen,
+        color: lightgreen.withOpacity(0.7),
       ),
       title: "Rewards",
-      activeColorPrimary: lightgreen,
+      activeColorPrimary: lightgreen.withOpacity(0.7),
       inactiveColorPrimary: whitegray,
     ),
     PersistentBottomNavBarItem(
       icon: SvgPicture.asset(
         pathToIcons + "ic_bill.svg",
-        color: bloodred,
+        color: bloodred.withOpacity(0.7),
       ),
       title: "Orders",
-      activeColorPrimary: bloodred,
+      activeColorPrimary: bloodred.withOpacity(0.7),
       inactiveColorPrimary: whitegray,
     ),
   ];

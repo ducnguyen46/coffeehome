@@ -57,4 +57,27 @@ class BillOrderProvider with ChangeNotifier {
     var billRes = jsonDecode(responseBody).cast<Map<String, dynamic>>();
     return billRes.map<Bill>((json) => Bill.fromJson(json)).toList();
   }
+
+  Future<bool> receivedOrder(Bill bill) async {
+    var storageKey = UserStorageInfo();
+    String? token = await storageKey.getToken();
+
+    final response = await http.put(
+      Uri.parse("${Api.orderReceived}/${bill.order.id}"),
+      headers: {
+        HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
+        HttpHeaders.authorizationHeader: "Bearer $token",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var dataRes = jsonDecode(response.body);
+      if (dataRes["status"] == "OK") {
+        await getOrderOnGoing();
+        await getOrderComplete();
+        return true;
+      }
+    }
+    return false;
+  }
 }

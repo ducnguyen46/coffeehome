@@ -2,8 +2,12 @@ import 'package:coffeehome/config/color/color.dart';
 import 'package:coffeehome/constant/app_path.dart';
 import 'package:coffeehome/model/bill.dart';
 import 'package:coffeehome/ui/a_widget_reduce/appbar_back.dart';
+import 'package:coffeehome/ui/a_widget_reduce/toast.dart';
 import 'package:coffeehome/ui/cart/widget/item_card.dart';
 import 'package:coffeehome/ui/delivery_info/widget/address_card.dart';
+import 'package:coffeehome/ui/order/provider/bill_order_provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -106,7 +110,33 @@ class BillDetailScreen extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: !bill.order.shipment.isCompleted ? () {} : null,
+            onTap: () async {
+              if (bill.order.shipment.isCompleted == false) {
+                final checkReceived =
+                    await context.read<BillOrderProvider>().receivedOrder(bill);
+
+                FToast fToast = FToast();
+                fToast.init(context);
+                if (checkReceived) {
+                  fToast.showToast(
+                      gravity: ToastGravity.BOTTOM,
+                      toastDuration: Duration(seconds: 2),
+                      child: ToastView(
+                        content: "Thanks for chosing!",
+                        success: true,
+                      ));
+                } else {
+                  fToast.showToast(
+                      gravity: ToastGravity.BOTTOM,
+                      toastDuration: Duration(seconds: 2),
+                      child: ToastView(
+                        content: "Fail! Please try again later.",
+                        success: false,
+                      ));
+                }
+                Navigator.pop(context);
+              }
+            },
             child: Center(
               child: Container(
                 margin:

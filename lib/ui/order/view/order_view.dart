@@ -10,7 +10,7 @@ class OrderView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 25),
-      itemCount: 10,
+      itemCount: bills.length,
       itemBuilder: (context, index) => BillCard(
         bill: bills.elementAt(index),
       ),

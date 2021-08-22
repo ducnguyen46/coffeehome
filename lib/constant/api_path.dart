@@ -13,6 +13,7 @@ class Api {
 
   //order
   static const String order = baseUrl + "/order";
+  static const String orderReceived = baseUrl + "/order-received";
 
   //items
   static const String items = baseUrl + "/items";

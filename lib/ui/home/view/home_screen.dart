@@ -11,6 +11,7 @@ import 'package:coffeehome/ui/home/provider/product_provider.dart';
 import 'package:coffeehome/ui/home/widget/product_card.dart';
 import 'package:coffeehome/ui/home/widget/reward_card.dart';
 import 'package:coffeehome/ui/item_detail/view/item_detail_screen.dart';
+import 'package:coffeehome/ui/profile/view/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -157,7 +158,9 @@ class HomeSliverAppbar extends SliverPersistentHeaderDelegate {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => DeliveryInfoScreen()));
+                            builder: (_) => ProfileScreen(
+                                  user: user,
+                                )));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(8),
