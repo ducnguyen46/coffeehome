@@ -1,6 +1,6 @@
 import 'package:coffeehome/config/color/color.dart';
 import 'package:coffeehome/model/bill.dart';
-import 'package:coffeehome/ui/a_widget_reduce/appbar_center_title.dart';
+import 'package:coffeehome/ui/common/appbar_center_title.dart';
 import 'package:coffeehome/ui/animation/wave_coffee.dart';
 import 'package:coffeehome/ui/order/provider/bill_order_provider.dart';
 import 'package:coffeehome/ui/order/view/order_view.dart';
@@ -29,6 +29,12 @@ class _OrderScreenState extends State<OrderScreen>
       await context.read<BillOrderProvider>().getOrderComplete();
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController?.dispose();
+    super.dispose();
   }
 
   @override

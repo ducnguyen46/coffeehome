@@ -1,4 +1,4 @@
-import 'package:coffeehome/ui/a_widget_reduce/appbar_center_title.dart';
+import 'package:coffeehome/ui/common/appbar_center_title.dart';
 import 'package:coffeehome/ui/authenticate/provider/user_provider.dart';
 import 'package:coffeehome/ui/home/widget/reward_card.dart';
 import 'package:coffeehome/ui/item_detail/provider/item_provider.dart';

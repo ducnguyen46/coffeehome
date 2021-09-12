@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'user.g.dart';
-
-@JsonSerializable()
 class User {
   int? id;
   late String fullName;
@@ -26,6 +21,25 @@ class User {
     required this.isActived,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  factory User.fromJson(Map<String, dynamic> json) => User.all(
+        id: json['id'] as int,
+        fullName: json['fullName'] as String,
+        dateOfBirth: json['dateOfBirth'] as String,
+        email: json['email'] as String,
+        username: json['username'] as String,
+        reward: json['reward'] as String,
+        point: json['point'] as int,
+        isActived: json['isActived'] as bool,
+      );
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'fullName': fullName,
+        'dateOfBirth': dateOfBirth,
+        'email': email,
+        'username': username,
+        'reward': reward,
+        'point': point,
+        'isActived': isActived,
+      };
 }

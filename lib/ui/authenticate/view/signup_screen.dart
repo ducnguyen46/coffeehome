@@ -1,7 +1,7 @@
 import 'package:coffeehome/config/color/color.dart';
-import 'package:coffeehome/ui/a_widget_reduce/appbar_back.dart';
-import 'package:coffeehome/ui/a_widget_reduce/normal_field.dart';
-import 'package:coffeehome/ui/a_widget_reduce/password_field.dart';
+import 'package:coffeehome/ui/common/appbar_back.dart';
+import 'package:coffeehome/ui/common/normal_field.dart';
+import 'package:coffeehome/ui/common/password_field.dart';
 import 'package:coffeehome/ui/authenticate/provider/auth_provider.dart';
 import 'package:coffeehome/ui/authenticate/provider/signin_validate.dart';
 import 'package:coffeehome/ui/authenticate/widget/date_birth_field.dart';

@@ -23,7 +23,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return FutureBuilder(
+    return FutureBuilder<bool>(
       future: autoLogin(context),
       builder: (context, AsyncSnapshot<bool> snapshot) {
         if (!snapshot.hasError) {
@@ -36,7 +36,7 @@ class WelcomeScreen extends StatelessWidget {
                   child: Center(child: CoffeeAnimation()));
             default:
               return snapshot.data!
-                  ? MyBottomNavigation()
+                  ? BaseBottomNav()
                   : WelcomeView(
                       size: size,
                     );

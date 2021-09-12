@@ -1,8 +1,10 @@
 import 'package:coffeehome/config/color/color.dart';
+import 'package:coffeehome/core/storage_key.dart';
 import 'package:coffeehome/model/user.dart';
-import 'package:coffeehome/ui/a_widget_reduce/appbar_back.dart';
+import 'package:coffeehome/ui/common/appbar_back.dart';
 import 'package:coffeehome/ui/profile/view/change_password_screen.dart';
 import 'package:coffeehome/ui/profile/widget/profile_card.dart';
+import 'package:coffeehome/ui/welcome/view/welcom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -60,6 +62,30 @@ class ProfileScreen extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "Change password",
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                final userStorage = UserStorageInfo();
+                await userStorage.delete();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                    (Route<dynamic> route) => false);
+              },
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: lightblue,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Center(
+                  child: Text(
+                    "Log out",
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),

@@ -1,8 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'delivery_info.g.dart';
-
-@JsonSerializable()
 class DeliveryInfo {
   int? id;
   late String receiver;
@@ -20,7 +17,21 @@ class DeliveryInfo {
     required this.isDefault,
   });
 
-  factory DeliveryInfo.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryInfoFromJson(json);
-  Map<String, dynamic> toJson() => _$DeliveryInfoToJson(this);
+  factory DeliveryInfo.fromJson(Map<String, dynamic> json) => DeliveryInfo(
+        id: json['id'] as int?,
+        receiver: json['receiver'] as String,
+        phoneNumber: json['phoneNumber'] as String,
+        address: json['address'] as String,
+        note: json['note'] as String,
+        isDefault: json['isDefault'] as bool,
+      );
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'receiver': receiver,
+        'phoneNumber': phoneNumber,
+        'address': address,
+        'note': note,
+        'isDefault': isDefault,
+      };
 }

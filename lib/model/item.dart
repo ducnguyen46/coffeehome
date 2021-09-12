@@ -1,9 +1,6 @@
 import 'package:coffeehome/model/product.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'item.g.dart';
-
-@JsonSerializable()
 class Item {
   int? id;
   late Product product;
@@ -25,6 +22,25 @@ class Item {
     required this.sugar,
   });
 
-  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
-  Map<String, dynamic> toJson() => _$ItemToJson(this);
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
+        id: json['id'] as int?,
+        product: Product.fromJson(json['product'] as Map<String, dynamic>),
+        priceIn: (json['priceIn'] as num).toDouble(),
+        quantity: json['quantity'] as int,
+        type: json['type'] as String,
+        size: json['size'] as String,
+        ice: json['ice'] as String,
+        sugar: json['sugar'] as String,
+      );
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'product': product,
+        'priceIn': priceIn,
+        'quantity': quantity,
+        'type': type,
+        'size': size,
+        'ice': ice,
+        'sugar': sugar,
+      };
 }

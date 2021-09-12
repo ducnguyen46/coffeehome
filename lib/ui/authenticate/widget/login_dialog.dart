@@ -5,6 +5,7 @@ import 'package:coffeehome/ui/authenticate/provider/auth_provider.dart';
 import 'package:coffeehome/ui/authenticate/provider/user_provider.dart';
 import 'package:coffeehome/ui/home/provider/product_provider.dart';
 import 'package:coffeehome/ui/home/view/home_screen.dart';
+import 'package:coffeehome/ui/welcome/view/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -73,7 +74,7 @@ class LoginDialog extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomeScreen(),
+                  builder: (context) => BaseBottomNav(),
                 ),
               );
             });

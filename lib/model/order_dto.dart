@@ -1,9 +1,6 @@
 import 'package:coffeehome/model/item.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'order_dto.g.dart';
-
-@JsonSerializable()
 class OrderDto {
   late List<Item> items;
   late int voucherId;
@@ -15,7 +12,17 @@ class OrderDto {
     required this.deliveryId,
   });
 
-  factory OrderDto.fromJson(Map<String, dynamic> json) =>
-      _$OrderDtoFromJson(json);
-  Map<String, dynamic> toJson() => _$OrderDtoToJson(this);
+  factory OrderDto.fromJson(Map<String, dynamic> json) => OrderDto(
+        items: (json['items'] as List<dynamic>)
+            .map((e) => Item.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        voucherId: json['voucherId'] as int,
+        deliveryId: json['deliveryId'] as int,
+      );
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'items': items,
+        'voucherId': voucherId,
+        'deliveryId': deliveryId,
+      };
 }

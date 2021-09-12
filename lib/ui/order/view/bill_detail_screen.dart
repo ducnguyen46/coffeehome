@@ -1,8 +1,8 @@
 import 'package:coffeehome/config/color/color.dart';
 import 'package:coffeehome/constant/app_path.dart';
 import 'package:coffeehome/model/bill.dart';
-import 'package:coffeehome/ui/a_widget_reduce/appbar_back.dart';
-import 'package:coffeehome/ui/a_widget_reduce/toast.dart';
+import 'package:coffeehome/ui/common/appbar_back.dart';
+import 'package:coffeehome/ui/common/toast.dart';
 import 'package:coffeehome/ui/cart/widget/item_card.dart';
 import 'package:coffeehome/ui/delivery_info/widget/address_card.dart';
 import 'package:coffeehome/ui/order/provider/bill_order_provider.dart';

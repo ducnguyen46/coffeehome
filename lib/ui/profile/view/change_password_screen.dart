@@ -1,7 +1,7 @@
 import 'package:coffeehome/config/color/color.dart';
-import 'package:coffeehome/ui/a_widget_reduce/appbar_back.dart';
-import 'package:coffeehome/ui/a_widget_reduce/normal_field.dart';
-import 'package:coffeehome/ui/a_widget_reduce/password_field.dart';
+import 'package:coffeehome/ui/common/appbar_back.dart';
+import 'package:coffeehome/ui/common/normal_field.dart';
+import 'package:coffeehome/ui/common/password_field.dart';
 import 'package:coffeehome/ui/animation/wave_coffee.dart';
 import 'package:coffeehome/ui/profile/provider/change_password_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,8 +15,6 @@ class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    print("build");
     return Scaffold(
       appBar: const AppBarBack(
         title: "Change password",

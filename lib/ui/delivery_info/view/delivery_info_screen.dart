@@ -1,5 +1,5 @@
 import 'package:coffeehome/constant/app_path.dart';
-import 'package:coffeehome/ui/a_widget_reduce/appbar_back.dart';
+import 'package:coffeehome/ui/common/appbar_back.dart';
 import 'package:coffeehome/ui/delivery_info/provider/delivery_provider.dart';
 import 'package:coffeehome/ui/delivery_info/view/new_address_screen.dart';
 import 'package:coffeehome/ui/delivery_info/widget/address_card.dart';
@@ -35,11 +35,11 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NewAddressScreen(),
-                    ));
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => NewAddressScreen(),
+                  ),
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

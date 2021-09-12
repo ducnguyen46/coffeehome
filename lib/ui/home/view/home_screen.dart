@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:coffeehome/constant/app_path.dart';
 import 'package:coffeehome/model/product.dart';
 import 'package:coffeehome/model/user.dart';
-import 'package:coffeehome/ui/a_widget_reduce/toast.dart';
+import 'package:coffeehome/ui/common/toast.dart';
 import 'package:coffeehome/ui/authenticate/provider/user_provider.dart';
 import 'package:coffeehome/ui/cart/view/cart_screen.dart';
 import 'package:coffeehome/ui/delivery_info/view/delivery_info_screen.dart';
@@ -62,13 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
               delegate: SliverChildBuilderDelegate(
                 (context, index) => GestureDetector(
                   onTap: () async {
-                    final result = await Navigator.push(
+                    final bool? result = await Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (_) => ItemDetailScreen(
                                   product: _products![index],
                                 )));
-                    if (result) {
+                    if (result != null && result) {
                       FToast fToast = FToast();
                       fToast.init(context);
                       fToast.showToast(

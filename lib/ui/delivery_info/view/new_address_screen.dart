@@ -1,9 +1,9 @@
 import 'package:coffeehome/config/color/color.dart';
 import 'package:coffeehome/model/delivery_info.dart';
-import 'package:coffeehome/ui/a_widget_reduce/appbar_back.dart';
-import 'package:coffeehome/ui/a_widget_reduce/normal_field.dart';
-import 'package:coffeehome/ui/a_widget_reduce/phone_field.dart';
-import 'package:coffeehome/ui/a_widget_reduce/toast.dart';
+import 'package:coffeehome/ui/common/appbar_back.dart';
+import 'package:coffeehome/ui/common/normal_field.dart';
+import 'package:coffeehome/ui/common/phone_field.dart';
+import 'package:coffeehome/ui/common/toast.dart';
 import 'package:coffeehome/ui/delivery_info/provider/delivery_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +19,13 @@ class NewAddressScreen extends StatefulWidget {
 }
 
 class _NewAddressScreenState extends State<NewAddressScreen> {
+  DeliveryInfoProvider? deliveryInfoProvider;
+
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       context.read<DeliveryInfoProvider>().init();
+      deliveryInfoProvider = context.read<DeliveryInfoProvider>();
     });
     super.initState();
   }
@@ -30,7 +33,6 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var deliveryInfoProvider = context.watch<DeliveryInfoProvider>();
 
     return Scaffold(
       appBar: AppBarBack(
@@ -58,7 +60,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                     iconName: "ic_person.svg",
                     expanded: false,
                     validate: (name) {
-                      deliveryInfoProvider.setName(name);
+                      context.read<DeliveryInfoProvider>().setName(name);
                     },
                   ),
                   SizedBox(
@@ -66,10 +68,10 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                   ),
                   PhoneField(
                     validate: (num) {
-                      deliveryInfoProvider.setPhoneNumber(num);
+                      context.read<DeliveryInfoProvider>().setPhoneNumber(num);
                     },
                     countryCode: (code) {
-                      deliveryInfoProvider.setCountryCode(code);
+                      context.read<DeliveryInfoProvider>().setCountryCode(code);
                     },
                   ),
                   SizedBox(
@@ -80,7 +82,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                     iconName: "ic_pin.svg",
                     expanded: true,
                     validate: (address) {
-                      deliveryInfoProvider.setAddress(address);
+                      context.read<DeliveryInfoProvider>().setAddress(address);
                     },
                   ),
                   SizedBox(
@@ -91,7 +93,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                     iconName: "ic_pen.svg",
                     expanded: true,
                     validate: (note) {
-                      deliveryInfoProvider.setNote(note);
+                      context.read<DeliveryInfoProvider>().setNote(note);
                     },
                   ),
                   SizedBox(
@@ -105,9 +107,9 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  deliveryInfoProvider.error != null
+                  deliveryInfoProvider?.error != null
                       ? Text(
-                          "${deliveryInfoProvider.error}",
+                          "${deliveryInfoProvider!.error}",
                           style: TextStyle(
                             color: bloodred,
                             fontSize: 10,
@@ -117,14 +119,14 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                       : Container(),
                   GestureDetector(
                     onTap: () async {
-                      if (deliveryInfoProvider.name.data != null &&
-                          deliveryInfoProvider.phoneNumber.data != null &&
-                          deliveryInfoProvider.address.data != null) {
-                        String name = deliveryInfoProvider.name.data!;
-                        String phoneNumber = deliveryInfoProvider.countryCode +
-                            deliveryInfoProvider.phoneNumber.data!;
-                        String address = deliveryInfoProvider.address.data!;
-                        String note = deliveryInfoProvider.note;
+                      if (deliveryInfoProvider?.name.data != null &&
+                          deliveryInfoProvider?.phoneNumber.data != null &&
+                          deliveryInfoProvider?.address.data != null) {
+                        String name = deliveryInfoProvider!.name.data!;
+                        String phoneNumber = deliveryInfoProvider!.countryCode +
+                            deliveryInfoProvider!.phoneNumber.data!;
+                        String address = deliveryInfoProvider!.address.data!;
+                        String note = deliveryInfoProvider!.note;
 
                         DeliveryInfo deliveryInfo = DeliveryInfo(
                             id: 0,
@@ -134,17 +136,17 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                             note: note,
                             isDefault: true);
 
-                        await deliveryInfoProvider
+                        await deliveryInfoProvider!
                             .addNewDeliveryInfo(deliveryInfo);
 
-                        if (deliveryInfoProvider.log?["status"] == "OK") {
+                        if (deliveryInfoProvider!.log?["status"] == "OK") {
                           FToast fToast = FToast();
                           fToast.init(context);
                           fToast.showToast(
                               gravity: ToastGravity.BOTTOM,
                               toastDuration: Duration(seconds: 2),
                               child: ToastView(
-                                  content: deliveryInfoProvider.log?["data"],
+                                  content: deliveryInfoProvider!.log?["data"],
                                   success: true));
                           Navigator.pop(context);
                         } else {
@@ -154,7 +156,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                               gravity: ToastGravity.BOTTOM,
                               toastDuration: Duration(seconds: 2),
                               child: ToastView(
-                                  content: deliveryInfoProvider.log?["data"],
+                                  content: deliveryInfoProvider!.log?["data"],
                                   success: false));
                         }
                       }

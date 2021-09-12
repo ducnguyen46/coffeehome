@@ -1,8 +1,8 @@
 import 'package:coffeehome/config/color/color.dart';
-import 'package:coffeehome/ui/a_widget_reduce/appbar_back.dart';
-import 'package:coffeehome/ui/a_widget_reduce/normal_field.dart';
-import 'package:coffeehome/ui/a_widget_reduce/password_field.dart';
-import 'package:coffeehome/ui/a_widget_reduce/toast.dart';
+import 'package:coffeehome/ui/common/appbar_back.dart';
+import 'package:coffeehome/ui/common/normal_field.dart';
+import 'package:coffeehome/ui/common/password_field.dart';
+import 'package:coffeehome/ui/common/toast.dart';
 import 'package:coffeehome/ui/authenticate/provider/auth_provider.dart';
 import 'package:coffeehome/ui/authenticate/provider/signin_validate.dart';
 import 'package:coffeehome/ui/authenticate/view/signup_screen.dart';
@@ -110,9 +110,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        final bool result = await Navigator.push(context,
+                        final bool? result = await Navigator.push(context,
                             MaterialPageRoute(builder: (_) => SignUpScreen()));
-                        if (result) {
+                        if (result != null && result) {
                           _fToast?.showToast(
                             gravity: ToastGravity.BOTTOM,
                             toastDuration: Duration(seconds: 2),

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class DeliveryInfoProvider with ChangeNotifier {
-  //value delivery info
+  
   List<DeliveryInfo> _deliveryInfos = [];
   DeliveryInfo? _deliveryInfo;
 
